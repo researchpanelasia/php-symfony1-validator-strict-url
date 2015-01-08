@@ -1,7 +1,10 @@
 {
     "name": "researchpanelasia/symfony1-validator-strict-url",
     "description": "Strict URL validator for Symfony 1.x",
+    "keywords": ["symfony1", "validator", "url"],
+    "type": "library",
     "license": "MIT",
+    "homepage": "https://github.com/researchpanelasia/php-symfony1-validator-strict-url",
     "authors": [
         {
             "name": "yowcowvg",
