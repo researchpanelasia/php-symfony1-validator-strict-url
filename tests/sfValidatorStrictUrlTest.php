@@ -78,7 +78,7 @@ class sfValidatorStrictUrlTest extends \PHPUnit_Framework_TestCase
     public function testURL_with_unsafe_char()
     {
         try {
-            $url = html_entity_decode('http://www.researchpanelasia.com&#x200b;/');
+            $url = html_entity_decode('http://www.researchpanelasia.com/&#x200b;/', ENT_COMPAT, 'UTF-8');
 
             $this->v->clean($url);
 
