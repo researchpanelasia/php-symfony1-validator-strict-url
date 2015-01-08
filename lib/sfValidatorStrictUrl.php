@@ -1,12 +1,17 @@
 <?php
 
-class sfValidatorStrictUrl extends \sfValidatorRegex
+class sfValidatorStrictUrl extends \sfValidatorUrl
 {
-    protected function configure($options = array(), $messages = array())
-    {
-        parent::configure($options, $messages);
+    const CTRL_HIBIT_REGEX = '/[\x00-\x1f\x7f-\xff]/';
 
-        # Taken from http://www.din.or.jp/~ohzaki/perl.htm#httpURL
-        $this->setOption('pattern', '/\As?https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+\z/i');
+    protected function doClean($value)
+    {
+        $clean = parent::doClean($value);
+
+        if (preg_match(self::CTRL_HIBIT_REGEX, $clean)) {
+            throw new sfValidatorError($this, 'invalid', array('value' => $value));
+        }
+
+        return $clean;
     }
 }

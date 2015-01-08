@@ -22,10 +22,12 @@ class sfValidatorStrictUrlTest extends \PHPUnit_Framework_TestCase
             'http://www.symfony-project.com/',
             'http://127.0.0.1/',
             'http://127.0.0.1:80/',
+            'ftp://google.com/foo.tgz',
+            'ftps://google.com/foo.tgz',
         );
 
         foreach ($ok_urls as $url) {
-            $this->assertEquals($this->v->clean($url), $url);
+            $this->assertEquals($this->v->clean($url), $url, "{$url} is OK");
         }
     }
 
@@ -34,7 +36,7 @@ class sfValidatorStrictUrlTest extends \PHPUnit_Framework_TestCase
         $ng_urls = array(
             'google.com',
             'http:/google.com',
-            #'http://google.com::aa', # should test?
+            'http://google.com::aa',
         );
 
         foreach ($ng_urls as $url) {
@@ -65,6 +67,20 @@ class sfValidatorStrictUrlTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->v->clean('http://www.researchpanelasia.com/testあ');
+
+            $this->assertTrue(FALSE);
+        }
+        catch (Exception $e) {
+            $this->assertEquals($e->getCode(), 'invalid');
+        }
+    }
+
+    public function testURL_with_unsafe_char()
+    {
+        try {
+            $url = html_entity_decode('http://www.researchpanelasia.com&#x200b;/');
+
+            $this->v->clean($url);
 
             $this->assertTrue(FALSE);
         }
