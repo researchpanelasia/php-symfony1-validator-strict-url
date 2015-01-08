@@ -1,0 +1,21 @@
+{
+    "name": "researchpanelasia/symfony1-validator-strict-url",
+    "description": "Strict URL validator for Symfony 1.x",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yowcow",
+            "email": "yowcow@cpan.org"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*",
+        "symfony/symfony1": "1.2.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "lib/"
+        }
+    }
+}
